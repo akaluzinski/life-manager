@@ -20,7 +20,13 @@ spec:
             - sh
             - -c
             - |
-              echo "Running init SQL..."
+              echo "Waiting for Postgres to be ready..."
+              echo "$POSTGRES_USER:$POSTGRES_PASSWORD"
+              until pg_isready -h localhost -U $POSTGRES_USER -d $POSTGRES_DB; do
+                echo "Postgres not ready yet, sleeping 2s..."
+                sleep 2
+              done
+              echo "Postgres is ready, executing init.sql..."
               psql -h localhost -U $POSTGRES_USER -d $POSTGRES_DB -f /docker-entrypoint-initdb.d/init.sql
           env:
             - name: POSTGRES_USER
@@ -62,7 +68,7 @@ spec:
       volumes:
         - name: init-sql
           configMap:
-            name: life-manager-init-sql
+            name: init-sql
   volumeClaimTemplates:
     - metadata:
         name: data

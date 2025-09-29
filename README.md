@@ -15,5 +15,5 @@ kubectl get pods
 kubectl get svc
 
 # Verify database
-kubectl exec -it <postgres-pod> -- psql -U postgres -d habitdb -c "SELECT * FROM user_account;"
-kubectl exec -it <postgres-pod> -- psql -U postgres -d habitdb -c "SELECT * FROM habit;"
+kubectl exec -it postgres-0 -- psql -U postgres -d habitdb -c "SELECT * FROM user_account;"
+kubectl exec -it postgres-0 -- psql -U postgres -d habitdb -c "SELECT * FROM habit;"
