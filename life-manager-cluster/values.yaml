@@ -1,7 +1,17 @@
-# Default values for life-manager-cluster.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+service:
+  type: ClusterIP
+  port: 8080
 
+postgres:
+  image: postgres:15-alpine
+  username: postgres
+  password: postgres
+  database: habitdb
+  storage: 1Gi
+
+ingress:
+  enabled: true
+  host: habits.local
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 1
 

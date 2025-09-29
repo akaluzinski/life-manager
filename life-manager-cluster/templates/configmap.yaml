@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: habits-config
+data:
+  application.yml: |
+    spring:
+      datasource:
+        url: jdbc:postgresql://postgres:5432/{{ .Values.postgres.database }}
+        username: {{ .Values.postgres.username }}
+        password: {{ .Values.postgres.password }}
+      jpa:
+        hibernate:
+          ddl-auto: update
